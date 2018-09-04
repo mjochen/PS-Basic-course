@@ -1,4 +1,4 @@
-﻿cd "C:\_Vakken\Powershell\Cursus\2 - Demo"
+﻿cd ... # the folder containing the scripts
 
 
 # version 1:
