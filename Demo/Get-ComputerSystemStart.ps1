@@ -38,15 +38,9 @@ $pc
 $pc1 = [PSCustomObject]@{ computername = "localhost" }
 $pc2 = [PSCustomObject]@{ computername = "pc-karin" }
 
-$pc1 = New-Object -TypeName PSObject
-$pc1 | Add-Member -MemberType NoteProperty -Name Computername -Value localhost
-$pc2 = New-Object -TypeName PSObject
-$pc2 | Add-Member -MemberType NoteProperty -Name Computername -Value pc-karin
-
 $pc1, $pc2 | Export-Csv c:\tmp\computers2.csv -Delimiter ";"
 
 Import-Csv c:\tmp\computers.csv -Delimiter ";" | % { .\Get-ComputerSystemV9.ps1 -computername $_.Computername -verbose }
 Import-Csv c:\tmp\computers.csv -Delimiter ";" | .\Get-ComputerSystemV10.ps1 -Verbose
-Import-Csv c:\tmp\computers.csv -Delimiter ";" | Ft Computername, name
 
 "localhost" | .\Get-ComputerSystemV10.ps1 -Verbose # Broken!
