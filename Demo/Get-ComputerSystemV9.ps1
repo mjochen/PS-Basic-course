@@ -24,18 +24,20 @@ param(
 
 	[switch]$Detail
 )
-process {
-    if ($Detail) {
-	    Get-WmiObject -Class Win32_ComputerSystem -ComputerName $ComputerName | 
-        Select-Object Name, Model, Manufacturer, SystemType, Domain, BootUpState, 
-        @{name="Geheugen (GB)";expression={$_.TotalPhysicalMemory/1GB -as [int]}}
-    }
-    else {
-	    Get-WmiObject -Class Win32_ComputerSystem -ComputerName $ComputerName | 
-        Select-Object Name, Model, Manufacturer
-    }
+Write-Verbose "Connecting to computer $ComputerName"
+
+if ($Detail) {
+	Get-WmiObject -Class Win32_ComputerSystem -ComputerName $ComputerName | 
+    Select-Object Name, Model, Manufacturer, SystemType, Domain, BootUpState, 
+    @{name="Geheugen (GB)";expression={$_.TotalPhysicalMemory/1GB -as [int]}}
+}
+else {
+	Get-WmiObject -Class Win32_ComputerSystem -ComputerName $ComputerName | 
+    Select-Object Name, Model, Manufacturer
 }
 
+write-verbose "End for $ComputerName"
+
 <# NEXT STEP
-Use the common parameter -Verbose to show (or not show) extra information.
+Allow the computernames to be imported from a CSV-file.
 #>

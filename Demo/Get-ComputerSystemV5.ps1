@@ -1,6 +1,6 @@
 ﻿<#
 	.SYNOPSIS
-	The short description of the function.
+	The sort description of the function.
 	
 	.DESCRIPTION
 	The long description of the function.
@@ -17,13 +17,14 @@
 
 [CmdletBinding()]
 param(
-    [Parameter(Mandatory=$True)]
-    [ValidateSet(".","localhost","pc-karin")]
-	[string]$ComputerName,
-
+	$ComputerName,
 	[switch]$Detail
 )
+
+Write-Verbose "Connecting to computer $ComputerName"
+
 if ($Detail) {
+    
 	Get-WmiObject -Class Win32_ComputerSystem -ComputerName $ComputerName | 
     Select-Object Name, Model, Manufacturer, SystemType, Domain, BootUpState, 
     @{name="Memory (GB)";expression={$_.TotalPhysicalMemory/1GB -as [int]}}
@@ -33,6 +34,9 @@ else {
     Select-Object Name, Model, Manufacturer
 }
 
+write-verbose "End for $ComputerName"
+
 <# NEXT STEP
-Or take the computername by pipeline
+There's a problem if we don't give a value for the computername.
+We can provide a default value.
 #>

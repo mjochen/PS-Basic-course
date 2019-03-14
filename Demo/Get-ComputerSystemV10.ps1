@@ -18,7 +18,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory=$True,
-               ValueFromPipeline=$true)]
+               ValueFromPipelineByPropertyName=$true)]
     [ValidateSet(".","localhost","PC-Karin")]
 	[string]$ComputerName,
 

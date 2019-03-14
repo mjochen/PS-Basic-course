@@ -20,6 +20,9 @@ param(
 	$ComputerName="localhost",
 	[switch]$Detail
 )
+
+Write-Verbose "Connecting to computer $ComputerName"
+
 if ($Detail) {
 	Get-WmiObject -Class Win32_ComputerSystem -ComputerName $ComputerName | 
     Select-Object Name, Model, Manufacturer, SystemType, Domain, BootUpState, 
@@ -29,6 +32,8 @@ else {
 	Get-WmiObject -Class Win32_ComputerSystem -ComputerName $ComputerName | 
     Select-Object Name, Model, Manufacturer
 }
+
+write-verbose "End for $ComputerName"
 
 <# NEXT STEP
 We prefer that the script asks for a computername.

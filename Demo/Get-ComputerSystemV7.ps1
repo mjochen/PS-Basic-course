@@ -17,9 +17,14 @@
 
 [CmdletBinding()]
 param(
-	$ComputerName,
+    [Parameter(Mandatory=$True)]
+	[string]$ComputerName,
+
 	[switch]$Detail
 )
+
+Write-Verbose "Connecting to computer $ComputerName"
+
 if ($Detail) {
 	Get-WmiObject -Class Win32_ComputerSystem -ComputerName $ComputerName | 
     Select-Object Name, Model, Manufacturer, SystemType, Domain, BootUpState, 
@@ -30,7 +35,8 @@ else {
     Select-Object Name, Model, Manufacturer
 }
 
+write-verbose "End for $ComputerName"
+
 <# NEXT STEP
-There's a problem if we don't give a value for the computername.
-We can provide a default value.
+We can limit the list of available computernames.
 #>

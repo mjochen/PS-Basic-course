@@ -1,6 +1,6 @@
 ﻿<#
 	.SYNOPSIS
-	The sort description of the function.
+	The short description of the function.
 	
 	.DESCRIPTION
 	The long description of the function.
@@ -18,10 +18,14 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory=$True)]
+    [ValidateSet(".","localhost","pc-karin")]
 	[string]$ComputerName,
 
 	[switch]$Detail
 )
+
+Write-Verbose "Connecting to computer $ComputerName"
+
 if ($Detail) {
 	Get-WmiObject -Class Win32_ComputerSystem -ComputerName $ComputerName | 
     Select-Object Name, Model, Manufacturer, SystemType, Domain, BootUpState, 
@@ -32,6 +36,8 @@ else {
     Select-Object Name, Model, Manufacturer
 }
 
+write-verbose "End for $ComputerName"
+
 <# NEXT STEP
-We can limit the list of available computernames.
+Or take the computername by pipeline
 #>
