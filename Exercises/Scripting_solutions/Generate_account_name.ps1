@@ -5,6 +5,9 @@ function generate-accountname {
         [switch] $isTeacher
     )
     
+    $firstname = $firstname.Replace(" ","")
+    $lastname = $lastname.Replace(" ","")
+
     if(($firstname.Length + $lastname.Length) -gt 19)
     {
         $firstname = $firstname[0]
